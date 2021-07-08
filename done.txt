@@ -1,0 +1,6 @@
+X- Compile edited game
+X- Call make from a different directory (make from raylib/games, where the git file is)
+X- Compile and execute with bash file
+X- Limit the ball movement
+X- Print the ball position
+X- Add gravity

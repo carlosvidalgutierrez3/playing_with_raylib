@@ -15,25 +15,31 @@ int main(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    const int screenWidth = 1600;
+    const int screenWidth = 400;
     const int screenHeight = 450;
 
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - keyboard input");
+    InitWindow(screenWidth, screenHeight, "raylib [core] GAMES- keyboard input");
 
-    Vector2 ballPosition = { (float)screenWidth/2, (float)screenHeight/2 };
+    Vector2 ballPosition = { (float)screenWidth/2, (float)screenHeight/4 };
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
-
+    int t = 0;
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
         // Update
         //----------------------------------------------------------------------------------
-        if (IsKeyDown(KEY_RIGHT)) ballPosition.x += 2.0f;
-        if (IsKeyDown(KEY_LEFT)) ballPosition.x -= 2.0f;
-        if (IsKeyDown(KEY_UP)) ballPosition.y -= 2.0f;
-        if (IsKeyDown(KEY_DOWN)) ballPosition.y += 2.0f;
+        if (IsKeyDown(KEY_RIGHT) && ballPosition.x < 350) ballPosition.x += 10.0f;
+        if (IsKeyDown(KEY_LEFT) && ballPosition.x > 50) ballPosition.x -= 10.0f;
+        if (IsKeyDown(KEY_UP) && ballPosition.y > 50) {
+          ballPosition.y -= 10.0f;
+          t = 0;
+        }
+        if (IsKeyDown(KEY_DOWN) && ballPosition.y < 400) ballPosition.y += 10.0f;
+
+        //if (ballPosition.y < 400) ballPosition.y = ballPosition.y + 4.9*((float)t/60)²;
+        if (!IsKeyDown(KEY_UP) && ballPosition.y < 400) ballPosition.y = ballPosition.y + 4.9*(float)t/60.0;
         //----------------------------------------------------------------------------------
 
         // Draw
@@ -48,6 +54,7 @@ int main(void)
 
         EndDrawing();
         //----------------------------------------------------------------------------------
+        t++;
     }
 
     // De-Initialization
